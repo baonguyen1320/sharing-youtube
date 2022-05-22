@@ -1,6 +1,6 @@
 .d-flex.justify-content-center.align-items-center.flex-column.vh-100
   %h2.text-primary Log in
-  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  = form_with(model: resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f|
     .mb-3
       = f.label :email, class: 'mb-1' do
         %span Email Address

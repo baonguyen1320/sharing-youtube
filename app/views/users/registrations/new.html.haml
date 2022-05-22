@@ -1,7 +1,7 @@
 .d-flex.justify-content-center.align-items-center.flex-column.vh-100
   %h1.text-info.mb-5 Let's create account to share your favorite movies!
   %h2.text-primary Sign up
-  = form_with(model: resource, as: resource_name, url: user_registration_path) do |f|
+  = form_with(model: resource, as: resource_name, url: user_registration_path, data: { turbo: false }) do |f|
     .mb-3
       = f.label :email, class: 'mb-1' do
         %span Email Address
@@ -21,6 +21,9 @@
           %span Password Confirmation
           %abbr.text-danger *
       = f.password_field :password_confirmation, class: 'form-control', required: true, autocomplete: "new-password"
+
+    .mb-3
+      = f.submit "Sign up", class: 'btn btn-primary w-100'
 
     .mb-3
       .text-center.link-to-sign-in

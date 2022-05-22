@@ -5,22 +5,17 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    if user_signed_in?
-      redirect_to root_path
+    if params[:commit] == 'Login / Register'
+      redirect_to new_user_registration_path
     else
       super
     end
   end
 
   # POST /resource/sign_in
-  def create
-    # super
-    self.resource = warden.authenticate!(scope: resource_name, recall: "#{controller_path}#failure")
-    set_flash_message!(:notice, :signed_in)
-    sign_in(resource_name, resource)
-    yield resource if block_given?
-    respond_with resource, location: after_sign_in_path_for(resource)
-  end
+  # def create
+  #   super
+  # end
 
   # DELETE /resource/sign_out
   # def destroy
@@ -33,8 +28,4 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-
-  def failure
-    redirect_to new_user_registration_path
-  end
 end
