@@ -19,6 +19,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :trackable, :registerable, :validatable
 
   has_many :movies
+  has_many :user_movie_votes
+  has_many :movie_votes, through: :user_movie_votes, source: :movie
 
   validates :email, presence: true, uniqueness: true
 end

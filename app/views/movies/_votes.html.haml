@@ -1,0 +1,18 @@
+- total_vote_up = movie.total_vote_up_by(current_user)
+- total_vote_down = movie.total_vote_down_by(current_user)
+.un-vote.d-flex.my-1
+  %p.me-1.thumb-up= total_vote_up
+  = link_to movie_like_path(movie), data: { turbo_method: :post } do
+    %i.bi.bi-hand-thumbs-up.text-black
+.voted.d-none.d-flex.my-1
+  %p.me-1.thumb-up= total_vote_up
+  = link_to movie_like_path(movie), data: { turbo_method: :post } do
+    %i.bi.bi-hand-thumbs-up-fill.text-black
+.un-vote.d-flex.my-1
+  %p.ms-3.me-1.thumb-down= total_vote_down
+  = link_to movie_unlike_path(movie), data: { turbo_method: :post } do
+    %i.bi.bi-hand-thumbs-down.text-black
+.voted.d-none.d-flex.my-1
+  %p.ms-3.me-1.thumb-down= total_vote_down
+  = link_to movie_unlike_path(movie), data: { turbo_method: :post } do
+    %i.bi.bi-hand-thumbs-down-fill.text-black

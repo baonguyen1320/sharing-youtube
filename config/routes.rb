@@ -8,6 +8,9 @@ Rails.application.routes.draw do
              path_names: { sign_in: 'login', sign_out: 'logout' },
              only:        %i[sessions registrations]
 
-  resources :movies
+  resources :movies do
+    post 'like' => 'movie_votes#vote_up'
+    post 'unlike' => 'movie_votes#vote_down'
+  end
   resource :sharing_movies
 end

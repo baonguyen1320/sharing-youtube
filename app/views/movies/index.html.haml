@@ -12,23 +12,8 @@
           %h5.text-primary= movie.name
         %li
           %p Share by: #{movie.user.email}
-        %li.d-flex
-          .un-vote.d-flex.my-1
-            %p.me-1.thumb-up 36
-            = link_to root_path do
-              %i.bi.bi-hand-thumbs-up.text-black
-          .voted.d-none.d-flex.my-1
-            %p.me-1.thumb-up 36
-            = link_to root_path do
-              %i.bi.bi-hand-thumbs-up-fill.text-black
-          .un-vote.d-flex.my-1
-            %p.ms-3.me-1.thumb-down 12
-            = link_to root_path do
-              %i.bi.bi-hand-thumbs-down.text-black
-          .voted.d-none.d-flex.my-1
-            %p.ms-3.me-1.thumb-down 12
-            = link_to root_path do
-              %i.bi.bi-hand-thumbs-down-fill.text-black
+        %li#vote-section.d-flex
+          = render partial: 'votes', locals: { movie: movie }
         %li
           %b Description:
           %p.line-clamp

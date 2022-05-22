@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all.order(created_at: :desc)
+    @movies = Movie.all.order(created_at: :desc).includes(:user)
   end
 
   # GET /movies/1 or /movies/1.json
