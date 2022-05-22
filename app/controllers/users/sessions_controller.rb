@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    if params[:commit] == 'Login / Register'
+    if params[:commit] == 'signInMenuBar'
       redirect_to new_user_registration_path
     else
       super
