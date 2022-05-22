@@ -1,25 +1,34 @@
-%h1 Listing movies
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th Youtube code
-      %th
-      %th
-      %th
-
-  %tbody
-    - @movies.each do |movie|
-      %tr
-        %td= movie.name
-        %td= movie.description
-        %td= movie.youtube_code
-        %td= link_to 'Show', movie
-        %td= link_to 'Edit', edit_movie_path(movie)
-        %td= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Movie', new_movie_path
+- 10.times do
+  .row.mb-5
+    .col-5
+      .preview-youtube.ratio.ratio-16x9
+        %iframe{:allow => "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+        :allowfullscreen => "", :frameborder => "0", :width => "560", :height => "300", :src => "https://www.youtube.com/embed/XcfEW-XV-2k",
+        :title => "YouTube video player"}
+    .col-7
+      %ul.text-decoration-none.list-unstyled
+        %li
+          %h5.text-primary Movie title
+        %li
+          %p Share by: someone@gmail.com
+        %li.d-flex
+          .un-vote.d-flex.my-1
+            %p.me-1.thumb-up 36
+            = link_to root_path do
+              %i.bi.bi-hand-thumbs-up.text-black
+          .voted.d-none.d-flex.my-1
+            %p.me-1.thumb-up 36
+            = link_to root_path do
+              %i.bi.bi-hand-thumbs-up-fill.text-black
+          .un-vote.d-flex.my-1
+            %p.ms-3.me-1.thumb-down 12
+            = link_to root_path do
+              %i.bi.bi-hand-thumbs-down.text-black
+          .voted.d-none.d-flex.my-1
+            %p.ms-3.me-1.thumb-down 12
+            = link_to root_path do
+              %i.bi.bi-hand-thumbs-down-fill.text-black
+        %li
+          %b Description:
+          %p.line-clamp
+            %i Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source

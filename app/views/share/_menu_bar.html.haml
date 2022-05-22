@@ -1,0 +1,16 @@
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
+    .menu-bar.d-flex.justify-content-between.w-100
+      .left-side-bar.d-flex.align-items-center
+        %i.bi.bi-house-fill
+        %a.ms-2.navbar-brand{:href => "#"} Funny Movies
+      .right-side-bar
+        %form.row.g-3.d-flex.align-items-center
+          .col-auto
+            %label.visually-hidden{:for => "email"} Email
+            %input#email.form-control{:type => "text", :value => "email@example.com"}/
+          .col-auto
+            %label.visually-hidden{:for => "password"} Password
+            %input#password.form-control{:placeholder => "Password", :type => "password"}/
+          .col-auto
+            %button.btn.btn-primary{:type => "submit"} Login / Register
