@@ -16,7 +16,7 @@ end
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  def sign_in(resource, scope: :users)
+  def sign_in(resource, scope: :user)
     super(resource, scope:)
   end
 end

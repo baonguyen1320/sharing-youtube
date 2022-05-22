@@ -1,17 +1,17 @@
 = render 'shared/menu_bar'
-- 10.times do
+- @movies.each do |movie|
   .row.mb-5
     .col-5
       .preview-youtube.ratio.ratio-16x9
         %iframe{:allow => "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-        :allowfullscreen => "", :frameborder => "0", :width => "560", :height => "300", :src => "https://www.youtube.com/embed/XcfEW-XV-2k",
-        :title => "YouTube video player"}
+        :allowfullscreen => "", :frameborder => "0", :src => "https://www.youtube.com/embed/#{movie.youtube_code}"}
+        }
     .col-7
       %ul.text-decoration-none.list-unstyled
         %li
-          %h5.text-primary Movie title
+          %h5.text-primary= movie.name
         %li
-          %p Share by: someone@gmail.com
+          %p Share by: #{movie.user.email}
         %li.d-flex
           .un-vote.d-flex.my-1
             %p.me-1.thumb-up 36
@@ -32,4 +32,4 @@
         %li
           %b Description:
           %p.line-clamp
-            %i Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source
+            %i= movie.description

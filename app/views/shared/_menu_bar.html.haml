@@ -3,7 +3,7 @@
     .menu-bar.d-flex.justify-content-between.w-100
       .left-side-bar.d-flex.align-items-center
         %i.bi.bi-house-fill
-        %a.ms-2.navbar-brand{:href => "#"} Funny Movies
+        = link_to 'Funny Movies', root_path, class: 'ms-2 navbar-brand'
       .right-side-bar
         - if user_signed_in?
           .d-flex.gap-3
