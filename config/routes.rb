@@ -9,4 +9,5 @@ Rails.application.routes.draw do
              only:        %i[sessions registrations]
 
   resources :movies
+  resource :sharing_movies
 end

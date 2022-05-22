@@ -1,4 +1,4 @@
-%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light.mb-5{style: 'border-bottom: 1px solid grey'}
   .container-fluid
     .menu-bar.d-flex.justify-content-between.w-100
       .left-side-bar.d-flex.align-items-center
@@ -6,7 +6,10 @@
         %a.ms-2.navbar-brand{:href => "#"} Funny Movies
       .right-side-bar
         - if user_signed_in?
-          = button_to 'Logout', destroy_user_session_path, method: :delete, 'data-turbo': false, class: 'btn btn-primary'
+          .d-flex.gap-3
+            %p.align-self-center.text-secondary Welcome #{current_user.email}
+            = link_to 'Share a movie', new_sharing_movies_path, class: 'btn btn-primary'
+            = button_to 'Logout', destroy_user_session_path, method: :delete, 'data-turbo': false, class: 'btn btn-primary'
         - else
           = form_with(model: User.new, url: user_session_path, data: { turbo: false }, class: 'row g-3 d-flex align-items-center') do |form|
             .col-auto
@@ -16,4 +19,4 @@
               = form.label :password, class: 'visually-hidden'
               = form.password_field :password, class: 'form-control'
             .col-auto
-              = form.submit 'Login / Register', value: 'signInMenuBar', class: "btn btn-primary"
+              = form.submit 'Login / Register', value: 'Login / Register', class: "btn btn-primary"

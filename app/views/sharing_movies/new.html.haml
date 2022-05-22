@@ -1,0 +1,25 @@
+= render 'shared/menu_bar'
+.share-movie.d-flex.justify-content-center.mt-8
+  .card{:style => "width: 40rem;"}
+    .card-body
+      %h6.card-title.text-muted Share a Youtube movie
+
+      = form_with(model: Movie.new, url: sharing_movies_path, data: { turbo_method: :post, turbo: false }, class: 'mt-4') do |f|
+        .mb-3.d-flex.align-items-center
+          = f.label :name, class: 'mb-1 width-150' do
+            %span.text-secondary Movie name:
+          = f.text_field :name, class: 'form-control custom-input'
+
+        .mb-3.d-flex.align-items-center
+          = f.label :description, class: 'width-150' do
+            %span.text-secondary Description:
+          = f.text_field :description, class: 'form-control custom-input'
+
+        .mb-3.d-flex.align-items-center
+          = f.label :youtube_code, class: 'width-150' do
+            %span.text-secondary Youtube URL
+            %abbr.text-danger *
+          = f.text_field :youtube_code, autofocus: true, class: 'form-control custom-input', required: true
+
+        .mb-3.text-center
+          = f.submit "Share", class: 'btn btn-primary w-25'

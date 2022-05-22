@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Users::SessionsControllerTest < ActionDispatch::IntegrationTest
   test '#GET new redirect registration page if account not exist' do
-    get new_user_session_path(commit: 'signInMenuBar')
+    get new_user_session_path(commit: 'Login / Register')
 
     assert_redirected_to new_user_registration_path
   end

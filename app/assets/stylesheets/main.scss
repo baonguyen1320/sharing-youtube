@@ -9,6 +9,10 @@ p {
   padding: 0;
 }
 
+.width-150 {
+  width: 150px;
+}
+
 .line-clamp {
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -39,4 +43,21 @@ p {
 @keyframes fadeOut {
   from {opacity: 1; visibility: visible}
   to {opacity: 0; visibility: hidden}
+}
+
+.share-movie .card-title {
+  position: absolute;
+  top: -12px;
+  left: 25px;
+  padding: 0 8px;
+  background: #fff;
+}
+
+.custom-input {
+  border: 0;
+  border-bottom: 1px solid #86b7fe;
+  border-radius: unset;
+  &:focus {
+    box-shadow: none;
+  }
 }
