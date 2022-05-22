@@ -12,7 +12,7 @@
           %h5.text-primary= movie.name
         %li
           %p Share by: #{movie.user.email}
-        %li#vote-section.d-flex
+        %li.d-flex{id: "vote-section-#{movie.id}"}
           = render partial: 'votes', locals: { movie: movie }
         %li
           %b Description:
