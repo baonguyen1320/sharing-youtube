@@ -1,0 +1,2 @@
+class SharingMoviesController < ApplicationController
+end
