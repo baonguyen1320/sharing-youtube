@@ -1,55 +1,58 @@
-name: funny_movies_workflow
-on: [pull_request]
-
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "funny-movies-workflows"
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 jobs:
-  tests:
-    name: Unit Testing
-    runs-on: ubuntu-20.04
+  test:
+    runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:12.7
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: "funny_movies_test"
-          POSTGRES_PASSWORD: ""
+        image: postgres:11-alpine
         ports:
-          - 5432:5432
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set env
-        run: |
-          echo "RAILS_ENV=test" >> $GITHUB_ENV
-      - name: Check timezone
-        run: |
-          sudo ln -f -s /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime
-          timedatectl
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        uses: actions/checkout@v3
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92
         with:
-          ruby-version: 3.1.2
-      - name: Install gems
-        run: |
-          bundle config path vendor/bundle
-          bundle config --local build.sassc --disable-march-tune-native
-          bundle install --jobs 4 --retry 3
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
-      - name: Install packages
-        run: |
-          yarn install --pure-lockfile
-      - name: Setup test database
-        run: |
-          bin/rails db:create
-          bin/rails db:migrate
-      - name: Compile assets
-        run: |
-          bin/rails assets:precompile
+          bundler-cache: true
+      # Add or replace database setup steps here
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+      # Add or replace test runners here
       - name: Run tests
-        run: |
-          DISABLE_SPRING=true PARALLEL_WORKERS=2 bin/rails test
+        run: bin/rake
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92
+        with:
+          bundler-cache: true
+      # Add or replace any other lints here
+      - name: Security audit dependencies
+        run: bin/bundler-audit --update
+      - name: Security audit application code
+        run: bin/brakeman -q -w2
+      - name: Lint Ruby files
+        run: bin/rubocop --parallel
