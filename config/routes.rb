@@ -13,4 +13,5 @@ Rails.application.routes.draw do
     post 'unlike' => 'movie_votes#vote_down'
   end
   resource :sharing_movies
+  resource :data_seed, only: :create
 end

@@ -1,2 +1,5 @@
 = render 'shared/menu_bar'
 = render 'movies/scrollable_list'
+- if User.count.zero?
+  .d-flex.justify-content-center.align-items-center{style: "height: 200px"}
+    = link_to 'Generate sample data', data_seed_path, data: { turbo_method: :post }, class: 'btn btn-primary'
