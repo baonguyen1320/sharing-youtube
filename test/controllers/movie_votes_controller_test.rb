@@ -28,4 +28,15 @@ class MovieVotesControllerTest < ActionDispatch::IntegrationTest
       assert_equal 'vote_down', user_vote_movie.vote_type
     end
   end
+
+  test "#POST un voted if user toggle on it" do
+    sign_in(users(:one))
+    users(:one).user_movie_votes.create!(movie: movies(:one), vote_type: :vote_up)
+
+    assert_difference -> { UserMovieVote.count }, -1 do
+      post movie_unlike_path(movies(:one), format: :turbo_stream, un_vote: true)
+
+      assert_response :success
+    end
+  end
 end

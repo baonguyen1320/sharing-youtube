@@ -15,18 +15,22 @@ class Movie < ApplicationRecord
   YOUTUBE_REGEX = /watch\?v=.*.&/
 
   belongs_to :user
+
+  has_many :user_movie_votes
+  has_many :user_votes, through: :user_movie_votes, source: :user
+
   has_many :user_vote_ups, -> { merge(UserMovieVote.vote_up) }, class_name: 'UserMovieVote'
   has_many :user_vote_downs, -> { merge(UserMovieVote.vote_down) }, class_name: 'UserMovieVote'
 
   validates :youtube_code, presence: true, uniqueness: true, format: { with: YOUTUBE_REGEX, message: 'Invalid URL' }
   validate :youtube_code_unique_after_format
 
-  def total_vote_up_by(user)
-    user_vote_ups.where(user_id: user.id).count
+  def vote_up_by(user)
+    user_vote_ups.where(user_id: user.id)
   end
 
-  def total_vote_down_by(user)
-    user_vote_downs.where(user_id: user.id).count
+  def vote_down_by(user)
+    user_vote_downs.where(user_id: user.id)
   end
 
   private

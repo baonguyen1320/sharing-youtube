@@ -23,4 +23,8 @@ class User < ApplicationRecord
   has_many :movie_votes, through: :user_movie_votes, source: :movie
 
   validates :email, presence: true, uniqueness: true
+
+  def destroy_voted_movie(movie)
+    user_movie_votes.where(movie_id: movie.id).destroy_all
+  end
 end

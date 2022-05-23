@@ -16,7 +16,14 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'destroy_voted_movie' do
+    users(:one).user_movie_votes.create!(movie: movies(:one), vote_type: :vote_up)
+    users(:two).user_movie_votes.create!(movie: movies(:one), vote_type: :vote_down)
+    users(:two).user_movie_votes.create!(movie: movies(:one), vote_type: :vote_up)
+    users(:one).user_movie_votes.create!(movie: movies(:two), vote_type: :vote_up)
+
+    users(:one).destroy_voted_movie(movies(:one))
+
+    assert_empty users(:one).user_movie_votes.where(movie_id: movies(:one).id)
+  end
 end
