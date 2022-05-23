@@ -13,5 +13,18 @@ class UserMovieVote < ApplicationRecord
   belongs_to :user
   belongs_to :movie
 
+  after_commit :update_total_up_votes,   if: :vote_up?
+  after_commit :update_total_down_votes, if: :vote_down?
+
   enum vote_type: { vote_up: 'Vote up', vote_down: 'Vote down' }
+
+  private
+
+  def update_total_up_votes
+    movie.update_total_up_votes
+  end
+
+  def update_total_down_votes
+    movie.update_total_down_votes
+  end
 end

@@ -8,14 +8,6 @@ class MoviesHelperTest < ActionView::TestCase
     users(:one).user_movie_votes.create!(movie: movies(:two), vote_type: :vote_up)
   end
 
-  test '#total_vote_ups_of' do
-    assert_equal 2, total_vote_ups_of(movies(:one))
-  end
-
-  test '#total_vote_downs_of' do
-    assert_equal 1, total_vote_downs_of(movies(:one))
-  end
-
   test '#up_voted?' do
     assert up_voted?(users(:one), movies(:one))
   end

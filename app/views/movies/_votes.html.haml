@@ -1,6 +1,6 @@
-- total_vote_up = total_vote_ups_of(movie)
-- total_vote_down = total_vote_downs_of(movie)
-- up_voted = up_voted?(current_user, movie)
+- total_vote_up   = movie.total_up_votes
+- total_vote_down = movie.total_down_votes
+- up_voted   = up_voted?(current_user, movie)
 - down_voted = down_voted?(current_user, movie)
 .un-vote.my-1{class: up_voted ? 'd-none' : 'd-flex'}
   %p.me-1.thumb-up= total_vote_up

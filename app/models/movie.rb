@@ -2,13 +2,15 @@
 #
 # Table name: movies
 #
-#  id           :bigint           not null, primary key
-#  description  :text
-#  name         :string
-#  youtube_code :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  user_id      :bigint
+#  id               :bigint           not null, primary key
+#  description      :text
+#  name             :string
+#  total_down_votes :integer          default(0)
+#  total_up_votes   :integer          default(0)
+#  youtube_code     :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  user_id          :bigint
 #
 
 class Movie < ApplicationRecord
@@ -31,6 +33,14 @@ class Movie < ApplicationRecord
 
   def vote_down_by(user)
     user_vote_downs.where(user_id: user&.id)
+  end
+
+  def update_total_up_votes
+    update_column :total_up_votes, user_vote_ups.count
+  end
+
+  def update_total_down_votes
+    update_column :total_down_votes, user_vote_downs.count
   end
 
   private

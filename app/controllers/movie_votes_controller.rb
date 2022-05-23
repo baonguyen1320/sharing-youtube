@@ -8,7 +8,7 @@ class MovieVotesController < ApplicationController
     respond_to do |format|
       if user_vote_movie.save
         format.turbo_stream do
-          render turbo_stream: turbo_stream.update("vote-section-#{@movie.id}", partial: 'movies/votes', locals: { movie: @movie })
+          render turbo_stream: turbo_stream.update("vote-section-#{@movie.id}", partial: 'movies/votes', locals: { movie: @movie.reload })
         end
       else
         redirect_to root_path, alert: user_vote_movie.errors.full_messages
@@ -23,7 +23,7 @@ class MovieVotesController < ApplicationController
     respond_to do |format|
       if user_vote_movie.save
         format.turbo_stream do
-          render turbo_stream: turbo_stream.update("vote-section-#{@movie.id}", partial: 'movies/votes', locals: { movie: @movie })
+          render turbo_stream: turbo_stream.update("vote-section-#{@movie.id}", partial: 'movies/votes', locals: { movie: @movie.reload })
         end
       else
         redirect_to root_path, alert: user_vote_movie.errors.full_messages
@@ -35,7 +35,7 @@ class MovieVotesController < ApplicationController
     current_user.destroy_voted_movie(@movie)
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.update("vote-section-#{@movie.id}", partial: 'movies/votes', locals: { movie: @movie })
+        render turbo_stream: turbo_stream.update("vote-section-#{@movie.id}", partial: 'movies/votes', locals: { movie: @movie.reload })
       end
     end
   end
