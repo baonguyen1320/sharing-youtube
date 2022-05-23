@@ -12,7 +12,7 @@ youtube_code_3 = %w[19BMMS7c1ts wUTVE-PRjd0 19BMMS7c1ts 2osHRxoxMo0 x8jO2fPZS6k]
 youtube_code_4 = %w[o6KC8B70Q6s zSv4E0c3T0c vynKH6pdH6E 9LFxIYYAkos I9FAPIZRu90]
 youtube_code_5 = %w[VZOcpgCLgEo 2XphNPJIhDs 03B_QwfdDFY 1qHD7prlVZQ hYp1dt4qur4]
 youtube_code_6 = %w[eZOa-v1hvpM 3eBtgPJ7mWc OaDpaKPvvDM 8XBF8OX7RcU 55xeAW_GdyM]
-5.times do |index|
+3.times do |index|
   user = User.create!(email: "user_#{index+1}@test.com", password: [*'a'..'z'].sample(6).join)
   user.movies.new(name: Faker::Music.band, description: Faker::Lorem.paragraph_by_chars, youtube_code: eval("youtube_code_#{index+1}[0]")).save(validate: false)
   user.movies.new(name: Faker::Music.band, description: Faker::Lorem.paragraph_by_chars, youtube_code: eval("youtube_code_#{index+1}[1]")).save(validate: false)
