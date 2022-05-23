@@ -1,20 +1,2 @@
 = render 'shared/menu_bar'
-- @movies.each do |movie|
-  .row.mb-5
-    .col-5
-      .preview-youtube.ratio.ratio-16x9
-        %iframe{:allow => "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-        :allowfullscreen => "", :frameborder => "0", :src => "https://www.youtube.com/embed/#{movie.youtube_code}"}
-        }
-    .col-7
-      %ul.text-decoration-none.list-unstyled
-        %li
-          %h5.text-primary= movie.name
-        %li
-          %p Share by: #{movie.user.email}
-        %li.d-flex{id: "vote-section-#{movie.id}"}
-          = render partial: 'votes', locals: { movie: movie }
-        %li
-          %b Description:
-          %p.line-clamp
-            %i= movie.description
+= render 'movies/scrollable_list'

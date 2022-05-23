@@ -26,11 +26,11 @@ class Movie < ApplicationRecord
   validate :youtube_code_unique_after_format
 
   def vote_up_by(user)
-    user_vote_ups.where(user_id: user.id)
+    user_vote_ups.where(user_id: user&.id)
   end
 
   def vote_down_by(user)
-    user_vote_downs.where(user_id: user.id)
+    user_vote_downs.where(user_id: user&.id)
   end
 
   private
