@@ -4,17 +4,36 @@
 - down_voted = down_voted?(current_user, movie)
 .un-vote.my-1{class: up_voted ? 'd-none' : 'd-flex'}
   %p.me-1.thumb-up= total_vote_up
-  = link_to movie_like_path(movie), data: { turbo_method: :post }, class: class_names('pe-none': down_voted) do
-    %i.bi.bi-hand-thumbs-up.text-black
+  - if user_signed_in?
+    = link_to movie_like_path(movie), data: { turbo_method: :post }, class: class_names('pe-none': down_voted) do
+      %i.bi.bi-hand-thumbs-up.text-black
+  - else
+    = link_to new_user_session_path, 'data-turbo': false do
+      %i.bi.bi-hand-thumbs-up.text-black
+
 .voted.my-1{class: up_voted ? 'd-flex' : 'd-none'}
   %p.me-1.thumb-up= total_vote_up
-  = link_to movie_like_path(movie, un_vote: true), data: { turbo_method: :post } do
-    %i.bi.bi-hand-thumbs-up-fill.text-black
+  - if user_signed_in?
+    = link_to movie_like_path(movie, un_vote: true), data: { turbo_method: :post } do
+      %i.bi.bi-hand-thumbs-up-fill.text-black
+  - else
+    = link_to new_user_session_path, 'data-turbo': false do
+      %i.bi.bi-hand-thumbs-up-fill.text-black
+
 .un-vote.my-1{class: down_voted ? 'd-none' : 'd-flex'}
   %p.ms-3.me-1.thumb-down= total_vote_down
-  = link_to movie_unlike_path(movie), data: { turbo_method: :post }, class: class_names('pe-none': up_voted) do
-    %i.bi.bi-hand-thumbs-down.text-black
+  - if user_signed_in?
+    = link_to movie_unlike_path(movie), data: { turbo_method: :post }, class: class_names('pe-none': up_voted) do
+      %i.bi.bi-hand-thumbs-down.text-black
+  - else
+    = link_to new_user_session_path, 'data-turbo': false do
+      %i.bi.bi-hand-thumbs-down.text-black
+
 .voted.my-1{class: down_voted ? 'd-flex' : 'd-none'}
   %p.ms-3.me-1.thumb-down= total_vote_down
-  = link_to movie_unlike_path(movie, un_vote: true), data: { turbo_method: :post } do
-    %i.bi.bi-hand-thumbs-down-fill.text-black
+  - if user_signed_in?
+    = link_to movie_unlike_path(movie, un_vote: true), data: { turbo_method: :post } do
+      %i.bi.bi-hand-thumbs-down-fill.text-black
+  - else
+    = link_to new_user_session_path, 'data-turbo': false do
+      %i.bi.bi-hand-thumbs-down-fill.text-black
