@@ -18,6 +18,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :trackable, :registerable, :validatable, :timeoutable
 
+  has_many :comments
   has_many :movies
   has_many :user_movie_votes
   has_many :movie_votes, through: :user_movie_votes, source: :movie

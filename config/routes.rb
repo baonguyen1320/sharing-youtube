@@ -9,6 +9,7 @@ Rails.application.routes.draw do
              only:        %i[sessions registrations]
 
   resources :movies do
+    resource :comment, except: :index
     post 'like' => 'movie_votes#vote_up'
     post 'unlike' => 'movie_votes#vote_down'
   end

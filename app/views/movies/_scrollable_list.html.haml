@@ -1,5 +1,5 @@
 %turbo-frame{id: "movies-page-#{@pagy.page}"}
-  - @movies.each do |movie|
+  - @movies.includes(:comments).each do |movie|
     .row.mb-5
       .col-5
         .preview-youtube.ratio.ratio-16x9
@@ -18,4 +18,15 @@
             %b Description:
             %p.line-clamp
               %i= movie.description
+          %li
+            %b Comments:
+            %p.line-clamp
+              - movie.comments.each do |comment|
+                %p= comment.message
+            %p.line-clamp
+              - if user_signed_in?
+                = link_to 'Add comment', new_movie_comment_path(movie), 'data-turbo': false
+              - else
+                = link_to 'Login to add comment', new_user_session_path, 'data-turbo': false
+
   %turbo-frame{id: "movies-page-#{@pagy.next}", loading: :lazy, src: pagy_url_for(@pagy, @pagy.next)}

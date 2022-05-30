@@ -18,6 +18,8 @@ class Movie < ApplicationRecord
 
   belongs_to :user
 
+  has_many :comments
+
   has_many :user_movie_votes
   has_many :user_votes, through: :user_movie_votes, source: :user
 

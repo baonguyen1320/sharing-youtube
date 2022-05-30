@@ -1,0 +1,6 @@
+= render 'shared/menu_bar'
+= form_with(model: Comment.new, url: movie_comment_path, data: { turbo: false }, class: 'row g-3 d-flex align-items-center') do |form|
+  = form.label :message, class: 'visually-hidden'
+  = form.text_area :message, class: 'form-control'
+  = form.hidden_field :user_id, value: current_user.id
+  = form.submit 'Create Comment', class: "btn btn-primary"
